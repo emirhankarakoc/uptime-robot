@@ -77,6 +77,7 @@ public class RequestManager implements RequestService{
             log.info("bir gariban eklendi ve su siteye istek atildi." + request.getUrl());
         }
         catch (Exception e){
+            request.setCreated(LocalDateTime.now());
             request.setProjectId(r.getProjectId());
             request.setResponse(e.getMessage().substring(5));//error description
             request.setResponseCode(e.getMessage().substring(0,4));//error code
