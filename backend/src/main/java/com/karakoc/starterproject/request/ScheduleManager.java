@@ -18,7 +18,8 @@ import java.time.ZonedDateTime;
 public class ScheduleManager implements SchedulerService{
     private final RequestService service;
 
-    @Scheduled(cron = "59 * * * * *", zone = "GMT+3")
+   // @Scheduled(cron = "30 * * * * *", zone = "GMT+3")
+    @Scheduled(fixedDelay = 15000)
     public void scheduledTask() {
         log.info("Calisti.");
         service.requestAll();

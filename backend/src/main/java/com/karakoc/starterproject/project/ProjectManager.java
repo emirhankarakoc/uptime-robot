@@ -1,6 +1,7 @@
 package com.karakoc.starterproject.project;
 
 import com.karakoc.starterproject.exceptions.general.BadRequestException;
+import com.karakoc.starterproject.exceptions.general.NotfoundException;
 import com.karakoc.starterproject.request.Request;
 import com.karakoc.starterproject.user.User;
 import com.karakoc.starterproject.user.UserDTO;
@@ -30,10 +31,16 @@ public class ProjectManager implements ProjectService{
         Project project = new Project();
         project.setId(UUID.randomUUID().toString());
         project.setUserId(user.getId());
-
+        project.setUserMail(user.getMail());
         repository.save(project);
         user.getProjects().add(project);
         userRepository.save(user);
+        return project;
+    }
+
+    @Override
+    public Project getProjectById(String id) {
+        Project  project = repository.findById(id).orElseThrow(()->new NotfoundException("Project not found."));
         return project;
     }
 }

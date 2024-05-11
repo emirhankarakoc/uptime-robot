@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public class MailSenderManager implements MailSenderService {
     private final UserRepository repository;
     private final JavaMailSender mailSender;
 
+    @Transactional
     public String forgotPassword(String mail) {
         User user = repository.findByMail(mail).orElseThrow(() -> new NotfoundException("User not found."));
         Random random = new Random();
@@ -33,6 +35,17 @@ public class MailSenderManager implements MailSenderService {
         mailSender.send(simpleMailMessage);
         return "Mr/Mrs. " + user.getUsername().toUpperCase() + " , new password sent to your mail adress. Please check your mailbox.\n\n!!!!!...Don't forget change your password after log in with new password....!!!!!!!";
 
+    }
+
+    public void errorRequest(String mailAdress){
+        User user = repository.findByMail(mailAdress).orElseThrow(() -> new NotfoundException("User not found."));
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+
+        simpleMailMessage.setFrom("shopifyemirhan6@gmail.com");
+        simpleMailMessage.setSubject("YOUR PROJECT DOWN");
+        simpleMailMessage.setTo(user.getMail());
+        simpleMailMessage.setText("Your project down lil bro. <h1>Check it.</h1> Your project which down, removed from requestlist. Enter webpanel to add requestlist again. Enter webpanel to stop receiving mails.");
+        mailSender.send(simpleMailMessage);
     }
 
 }

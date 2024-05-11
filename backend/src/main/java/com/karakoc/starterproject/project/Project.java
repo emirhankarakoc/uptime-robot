@@ -18,6 +18,7 @@ public class Project {
     private String id;
 
     private String userId;
+    private String userMail;
     @OneToMany
     @JoinColumn(name = "requestId")
     private List<Request> requests;

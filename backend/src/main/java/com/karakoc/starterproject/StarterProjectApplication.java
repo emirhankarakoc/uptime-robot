@@ -1,5 +1,6 @@
 package com.karakoc.starterproject;
 
+import com.karakoc.starterproject.project.Project;
 import com.karakoc.starterproject.project.ProjectRepository;
 import com.karakoc.starterproject.security.JWTService;
 import com.karakoc.starterproject.user.User;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -28,6 +30,7 @@ public class StarterProjectApplication {
     @AllArgsConstructor
     public class MyCommandLineRunner implements CommandLineRunner {
         private final UserRepository repository;
+        private final ProjectRepository projectRepository;
         private final JWTService jwtService;
 
 
@@ -43,7 +46,17 @@ public class StarterProjectApplication {
             admin.setUpdatedAt(LocalDateTime.now());
             admin.setToken(jwtService.generateToken(admin.getUsername()));
             repository.save(admin);
+
             System.out.println(admin.getToken());
+
+
+            Project project = new Project();
+            project.setId(UUID.randomUUID().toString());
+            project.setUserId(admin.getId());
+            project.setRequests(new ArrayList<>());
+            project.setUserMail(admin.getMail());
+            projectRepository.save(project);
+            System.out.println(project.getId());
 
         }
     }

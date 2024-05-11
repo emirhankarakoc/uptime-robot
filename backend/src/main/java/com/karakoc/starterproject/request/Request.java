@@ -26,8 +26,7 @@ public class Request {
     @ElementCollection
     private Map<String, String> headers;
     private Method httpMethod;
-    private String response;
-    private String responseCode;
+    private Status status;
 
 
 
@@ -47,9 +46,8 @@ public class Request {
         dto.setBody(request.getBody());
         dto.setProjectId(request.getProjectId());
         dto.setHeaders(request.getHeaders());
-        dto.setResponse(request.getResponse());
-        dto.setResponseCode(request.getResponseCode());
         dto.setHttpMethod(request.getHttpMethod());
+        dto.setStatus(request.getStatus());
         return dto;
     }
 

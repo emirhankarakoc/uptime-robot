@@ -12,7 +12,6 @@ public class RequestDTO {
     private String body;
     private String projectId;
     private Map<String, String> headers;
-    private String response;
-    private String responseCode;
     private Method httpMethod;
+    private Status status;
 }

@@ -4,4 +4,5 @@ import com.karakoc.starterproject.request.Request;
 
 public interface ProjectService {
     Project createProject(CreateProjectRequest r);
+    Project getProjectById(String id);
 }
