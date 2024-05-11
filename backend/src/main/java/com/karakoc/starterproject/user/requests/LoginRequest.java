@@ -1,0 +1,10 @@
+package com.karakoc.starterproject.user.requests;
+
+import lombok.Getter;
+
+@Getter
+public class LoginRequest {
+
+    private String username;
+    private String password;
+}
