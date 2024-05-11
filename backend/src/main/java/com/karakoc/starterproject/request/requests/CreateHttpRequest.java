@@ -10,8 +10,10 @@ import java.util.Map;
 public class CreateHttpRequest {
 
     private String projectId;
+    private String title;
     private String url;
     private String body;
     private Map<String, String> headers;
     private Method httpMethod;
+    private String token;
 }

@@ -11,6 +11,7 @@ public class RequestDTO {
     private String url;
     private String body;
     private String projectId;
+    private String title;
     private Map<String, String> headers;
     private Method httpMethod;
     private Status status;

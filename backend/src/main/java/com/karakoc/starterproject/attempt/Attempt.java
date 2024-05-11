@@ -17,6 +17,8 @@ public class Attempt {
     private String url;
     private LocalDateTime created;
     private String body;
+    private String title;
+
     private String projectId;
     @ElementCollection
     private Map<String, String> headers;

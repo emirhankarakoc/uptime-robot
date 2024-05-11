@@ -18,7 +18,7 @@ public class Request {
 
     @Id
     private String id;
-
+    private String title;
     private String url;
     private LocalDateTime created;
     private String body;
@@ -37,6 +37,7 @@ public class Request {
         request.setBody(r.getBody());
         request.setHeaders(r.getHeaders());
         request.setHttpMethod(r.getHttpMethod());
+        request.setTitle(r.getTitle());
         return request;
     }
     public static RequestDTO requestToDTO(Request request) {
@@ -48,6 +49,7 @@ public class Request {
         dto.setHeaders(request.getHeaders());
         dto.setHttpMethod(request.getHttpMethod());
         dto.setStatus(request.getStatus());
+        dto.setTitle(request.getTitle());
         return dto;
     }
 

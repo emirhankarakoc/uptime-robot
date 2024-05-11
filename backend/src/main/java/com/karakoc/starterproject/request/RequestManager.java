@@ -69,6 +69,7 @@ public class RequestManager implements RequestService{
                     break;
                 }
             }
+            request.setTitle(r.getTitle());
             request.setCreated(LocalDateTime.now());
             request.setResponse(response.getBody());
             request.setResponseCode(response.getStatusCode().toString());
@@ -77,6 +78,7 @@ public class RequestManager implements RequestService{
             log.info("bir gariban eklendi ve su siteye istek atildi." + request.getUrl());
         }
         catch (Exception e){
+            request.setTitle(r.getTitle());
             request.setCreated(LocalDateTime.now());
             request.setProjectId(r.getProjectId());
             request.setResponse(e.getMessage().substring(5));//error description

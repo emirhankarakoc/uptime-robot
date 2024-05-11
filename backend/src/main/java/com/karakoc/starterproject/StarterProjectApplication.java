@@ -2,6 +2,10 @@ package com.karakoc.starterproject;
 
 import com.karakoc.starterproject.project.Project;
 import com.karakoc.starterproject.project.ProjectRepository;
+import com.karakoc.starterproject.request.Method;
+import com.karakoc.starterproject.request.Request;
+import com.karakoc.starterproject.request.RequestRepository;
+import com.karakoc.starterproject.request.Status;
 import com.karakoc.starterproject.security.JWTService;
 import com.karakoc.starterproject.user.User;
 import com.karakoc.starterproject.user.UserRepository;
@@ -31,8 +35,7 @@ public class StarterProjectApplication {
     public class MyCommandLineRunner implements CommandLineRunner {
         private final UserRepository repository;
         private final ProjectRepository projectRepository;
-        private final JWTService jwtService;
-
+        private final RequestRepository requestRepository;
 
         @Override
         public void run(String... args) throws Exception {
@@ -44,7 +47,7 @@ public class StarterProjectApplication {
             admin.setMail("emirhankarakoc@yahoo.com");
             admin.setCreatedAt(LocalDateTime.now());
             admin.setUpdatedAt(LocalDateTime.now());
-            admin.setToken(jwtService.generateToken(admin.getUsername()));
+            admin.setToken("eyJhbGciOiJIUzI1NiJ9.eyJkZW5pemxpIjoiMjAyNCIsImVtaXJoYW4iOiJrYXJha29jIiwic3ViIjoiZW1pcmhhbiIsImlhdCI6MTcxNTQ1NzM0NiwiZXhwIjoxNzE1NDU4MjQ1fQ.VyDUEBOFcp5Q7RMhHJG8PihaIpofa88RD5lVks_BngI");
             repository.save(admin);
 
             System.out.println(admin.getToken());
@@ -57,6 +60,31 @@ public class StarterProjectApplication {
             project.setUserMail(admin.getMail());
             projectRepository.save(project);
             System.out.println(project.getId());
+
+            Request request = new Request();
+            request.setId(UUID.randomUUID().toString());
+            request.setUrl("http://localhost:8080/users/test1");
+            request.setHttpMethod(Method.GET);
+            request.setCreated(LocalDateTime.now());
+            request.setTitle("Localhost test1 get");
+            request.setProjectId(project.getId());
+            request.setStatus(Status.LIVE);
+            requestRepository.save(request);
+            project.getRequests().add(request);
+            projectRepository.save(project);
+
+            Request request2 = new Request();
+            request2.setId(UUID.randomUUID().toString());
+            request2.setUrl("http://localhost:8080/users/test0");
+            request2.setHttpMethod(Method.GET);
+            request2.setCreated(LocalDateTime.now());
+            request2.setTitle("Localhost test1 get");
+            request2.setProjectId(project.getId());
+            request2.setStatus(Status.LIVE);
+            requestRepository.save(request2);
+            project.getRequests().add(request2);
+            projectRepository.save(project);
+
 
         }
     }

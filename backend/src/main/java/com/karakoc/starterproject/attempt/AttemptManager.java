@@ -22,5 +22,6 @@ public class AttemptManager implements AttemptService{
     public List<Attempt> getAllAttemptsDaily(){
         return repository.findAllByCreatedIsBefore(LocalDateTime.now().plusDays(1));
     }
+
 }
 

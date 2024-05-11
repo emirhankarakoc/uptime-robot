@@ -3,27 +3,51 @@ import Navigation from "../components/Navigation";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { APIURL } from "../requests/Globals";
-import { Row, Spinner } from "react-bootstrap";
+import { Button, Row, Spinner } from "react-bootstrap";
+import RequestCard from "../components/RequestCard";
 
 export default function ProjectDashboard() {
   const { id } = useParams();
 
   const [project, setProject] = useState({});
+  const [endpoints, setEndpoints] = useState([]);
+
   useEffect(() => {
     const fetchProjectById = async () => {
       try {
         const response = await axios.get(`${APIURL}/projects/${id}`);
         const data = response.data;
+        setEndpoints(data.requests);
         setProject(data);
+        console.log(endpoints);
       } catch (error) {
         console.log(error);
       }
     };
     fetchProjectById();
-  }, [id]); // endpoints bağımlılığını kaldır
+  }, []);
 
-  if (project.requests === null) {
-    return <div>No endpoints available</div>; // endpoints null veya boşsa, mesajı göster
+  if (endpoints.length === 0) {
+    return (
+      <div>
+        <div>
+          <Navigation />
+        </div>
+        <div className="container fluid d-flex justify-content-center align-content-center flex-column  ">
+          <div className="d-flex justify-content-center align-content-center">
+            No endpoints available
+          </div>
+          <div className="d-flex justify-content-center align-content-center">
+            <Button href="/dashboard"> Click for back</Button>
+          </div>
+          <div className=" my-3 d-flex justify-content-center align-content-center">
+            <Button href="/projects/create" className="bg-warning">
+              or create a new one?
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!project) {
@@ -37,7 +61,13 @@ export default function ProjectDashboard() {
         <p>Mail address for crashes: {project.userMail}</p>
         <div>
           <h4>Endpoints for request</h4>
-          {project.requests.id}
+          <div>
+            {endpoints.map((endpoint, index) => (
+              <div key={index}>
+                <RequestCard endpoint={endpoint} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

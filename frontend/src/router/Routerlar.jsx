@@ -5,6 +5,7 @@ import About from "../pages/About";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
 import ProjectDashboard from "../pages/ProjectDashboard";
+import RequestDashboard from "../pages/RequestDashboard";
 
 export default function Routerlar() {
   return (
@@ -16,6 +17,10 @@ export default function Routerlar() {
       <Route path="/dashboard" element={<Dashboard />} />
 
       <Route path="/projects/:id" element={<ProjectDashboard />} />
+      <Route
+        path="/projects/:projectId/requests/:requestId"
+        element={<RequestDashboard />}
+      />
 
       <Route path="/*" element={<Home />} />
     </Routes>

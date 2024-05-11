@@ -25,7 +25,7 @@ public class RequestController {
         return service.changeBody(requestId,body);
     }
     @PutMapping("/status/live")
-    public RequestDTO setRequestStatusLive(@RequestBody String downedRequestId){
+    public RequestDTO setRequestStatusLive(@PathVariable String downedRequestId){
         return service.setRequestStatusLive(downedRequestId);
     }
 
