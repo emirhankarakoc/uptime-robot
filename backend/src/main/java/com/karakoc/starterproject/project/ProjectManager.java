@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -42,5 +43,10 @@ public class ProjectManager implements ProjectService{
     public Project getProjectById(String id) {
         Project  project = repository.findById(id).orElseThrow(()->new NotfoundException("Project not found."));
         return project;
+    }
+
+    @Override
+    public List<Project> getAll() {
+        return repository.findAll();
     }
 }

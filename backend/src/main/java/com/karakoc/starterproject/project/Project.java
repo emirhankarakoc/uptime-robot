@@ -16,7 +16,7 @@ public class Project {
 
     @Id
     private String id;
-
+    private String projectName;
     private String userId;
     private String userMail;
     @OneToMany
