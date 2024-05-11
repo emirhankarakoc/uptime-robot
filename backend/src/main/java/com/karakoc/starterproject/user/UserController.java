@@ -22,6 +22,10 @@ public class UserController {
         onlyAdmin(token);
         service.deleteUserById(id);
     }
+    @GetMapping("/test1")
+    public String testMethod(){
+        return "calisiyor mannn!";
+    }
 
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable String id, @RequestParam String token) {

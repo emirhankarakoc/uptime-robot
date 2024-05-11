@@ -6,6 +6,8 @@ public interface UserService {
 
     UserDTO getUserById(String id);
 
+    User getUserByToken(String token);
+
     String forgotPassword(String username);
 
     String changePassword(String username, String password);

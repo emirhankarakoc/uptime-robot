@@ -35,6 +35,12 @@ public class UserManager implements UserService {
         }
     }
 
+    @Override
+    public User getUserByToken(String token) {
+        User user = repository.findByToken(token).orElseThrow(()->new NotfoundException("User not found."));
+        return user;
+    }
+
     public String forgotPassword(String username) {
         return mailSenderService.forgotPassword(username);
     }

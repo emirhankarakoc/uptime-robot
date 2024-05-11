@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -19,12 +20,11 @@ public class Request {
     private String id;
 
     private String url;
-
+    private LocalDateTime created;
     private String body;
     private String projectId;
     @ElementCollection
     private Map<String, String> headers;
-
     private Method httpMethod;
     private String response;
     private String responseCode;

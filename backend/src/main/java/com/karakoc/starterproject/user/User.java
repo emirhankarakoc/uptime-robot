@@ -1,13 +1,13 @@
 package com.karakoc.starterproject.user;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.karakoc.starterproject.project.Project;
 import com.karakoc.starterproject.user.requests.RegisterRequest;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +23,12 @@ public class User {
     private String mail;
     @Enumerated
     private UserType type;
+
+
+    @OneToMany
+    @JoinColumn(name = "projectId")
+    private List<Project> projects;
+
     private String token;//mistik.
 
 
@@ -33,6 +39,7 @@ public class User {
         // Şifreyi BCrypt ile hashle
         String hashedPassword = BCrypt.withDefaults().hashToString(12, r.getPassword().toCharArray());
         user.setPassword(hashedPassword);
+        user.setMail("empty");
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
         user.setType(UserType.USER);

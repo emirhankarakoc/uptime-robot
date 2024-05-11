@@ -14,10 +14,13 @@ import java.time.ZonedDateTime;
 
 @Component
 @Slf4j
+@AllArgsConstructor
 public class ScheduleManager implements SchedulerService{
+    private final RequestService service;
 
     @Scheduled(cron = "59 * * * * *", zone = "GMT+3")
     public void scheduledTask() {
-        log.info("59. saniyede calisti");
+        log.info("Calisti.");
+        service.requestAll();
     }
     }

@@ -22,7 +22,7 @@ public class Project {
     @JoinColumn(name = "requestId")
     private List<Request> requests;
 
-    private String schedule;
+    //private String schedule;
 
 
 

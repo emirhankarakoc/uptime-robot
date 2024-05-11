@@ -8,11 +8,10 @@ import java.util.Map;
 
 @Data
 public class CreateHttpRequest {
-    private String url;
 
+    private String projectId;
+    private String url;
     private String body;
     private Map<String, String> headers;
-    private String response;
-    private String responseCode;
     private Method httpMethod;
 }
