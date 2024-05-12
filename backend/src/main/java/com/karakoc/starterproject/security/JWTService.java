@@ -3,7 +3,12 @@ package com.karakoc.starterproject.security;
 
 import com.karakoc.starterproject.config.security.SecurityConfig;
 import com.karakoc.starterproject.exceptions.general.BadRequestException;
+import com.karakoc.starterproject.exceptions.general.ForbiddenException;
+import com.karakoc.starterproject.exceptions.general.NotfoundException;
+import com.karakoc.starterproject.exceptions.general.UnauthorizatedException;
+import com.karakoc.starterproject.user.User;
 import com.karakoc.starterproject.user.UserRepository;
+import com.karakoc.starterproject.user.UserType;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -27,6 +32,16 @@ public class JWTService {
         this.jwtSettingsService = jwtSettingsService;
         this.repository = repository;
     }
+    public void onlyAdmin(String token){
+        validateToken(token);
+        User user =repository.findByToken(token).orElseThrow(()->new NotfoundException("User not found."));
+        if (!user.getType().equals(UserType.ADMIN)) {
+            throw new UnauthorizatedException("Unauthorized.");
+        }
+    }
+    public void isLoddedIn(String token){
+        validateToken(token);
+    }
 
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
@@ -36,15 +51,15 @@ public class JWTService {
     }
 
     public void validateToken(String token) {
-try
-{        Date expiration = extractExpiration(token);
-    if (expiration.before(new Date())) {
-        throw new BadRequestException("Token is expired.");
-    }
-    isUsernameExists(extractUsername(token));}
-catch (Exception e){
-    throw new BadRequestException("JWT Token problem.");
-}
+        try
+        {        Date expiration = extractExpiration(token);
+            if (expiration.before(new Date())) {
+                throw new BadRequestException("Token is expired.");
+            }
+            isUsernameExists(extractUsername(token));}
+        catch (Exception e){
+            throw new BadRequestException("JWT Token problem.");
+        }
     }
 
     private Date extractExpiration(String token) {

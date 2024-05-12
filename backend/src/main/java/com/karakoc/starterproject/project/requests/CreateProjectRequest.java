@@ -1,4 +1,4 @@
-package com.karakoc.starterproject.project;
+package com.karakoc.starterproject.project.requests;
 
 import lombok.Data;
 

@@ -1,12 +1,12 @@
 package com.karakoc.starterproject.project;
 
-import com.karakoc.starterproject.request.Request;
+import com.karakoc.starterproject.project.requests.CreateProjectRequest;
 
 import java.util.List;
 
 public interface ProjectService {
-    Project createProject(CreateProjectRequest r);
-    Project getProjectById(String id);
+    ProjectDTO createProject(CreateProjectRequest r);
+    ProjectDTO getProjectById(String id);
 
-    List<Project> getAll();
+    List<ProjectDTO> getAll();
 }

@@ -84,7 +84,7 @@ public class RequestManager implements RequestService{
             request.setResponse(e.getMessage().substring(5));//error description
             request.setResponseCode(e.getMessage().substring(0,4));//error code
             attemptRepository.save(request);
-            Project project = projectService.getProjectById(request.getProjectId()) ;
+            Project project = projectRepository.findById(r.getProjectId()).orElseThrow(()-> new NotfoundException("Project not found."));
             mailService.errorRequest(project.getUserMail());
             r.setStatus(Status.DOWN);
             repository.save(r);
@@ -102,7 +102,7 @@ public class RequestManager implements RequestService{
 
 
     public RequestDTO createRequest(CreateHttpRequest r){
-        Project project = projectService.getProjectById(r.getProjectId());
+        Project project = projectRepository.findById(r.getProjectId()).orElseThrow(()-> new NotfoundException("Project not found."));
         Request request = new Request();
         request.setId(UUID.randomUUID().toString());
         request.setUrl(r.getUrl());
@@ -147,20 +147,14 @@ public class RequestManager implements RequestService{
         return requestToDTO(request);
         //why?
     }
-
     public void deleteRequest(String requestId){
         Request request = getRequest(requestId);
         repository.delete(request);
     }
-
-
-
     private Request getRequest(String id){
         Request request = repository.findById(id).orElseThrow(()-> new NotfoundException("Request not found."));
 
         return request;
     }
-
-
 
 }
