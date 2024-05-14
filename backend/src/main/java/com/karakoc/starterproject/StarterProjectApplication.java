@@ -1,5 +1,6 @@
 package com.karakoc.starterproject;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.karakoc.starterproject.project.Project;
 import com.karakoc.starterproject.project.ProjectRepository;
 import com.karakoc.starterproject.request.Method;
@@ -35,6 +36,7 @@ public class StarterProjectApplication {
     public class MyCommandLineRunner implements CommandLineRunner {
         private final UserRepository repository;
         private final ProjectRepository projectRepository;
+        private final JWTService jwtService;
         private final RequestRepository requestRepository;
 
         @Override
@@ -42,12 +44,14 @@ public class StarterProjectApplication {
             User admin = new User();
             admin.setId(UUID.randomUUID().toString());
             admin.setUsername("emirhan");
-            admin.setPassword("emirhan");
+            String hashedPassword = BCrypt.withDefaults().hashToString(12, "emirhan".toCharArray());
+            admin.setPassword(hashedPassword);
+
             admin.setType(UserType.ADMIN);
             admin.setMail("emirhankarakoc@yahoo.com");
             admin.setCreatedAt(LocalDateTime.now());
             admin.setUpdatedAt(LocalDateTime.now());
-            admin.setToken("eyJhbGciOiJIUzI1NiJ9.eyJkZW5pemxpIjoiMjAyNCIsImVtaXJoYW4iOiJrYXJha29jIiwic3ViIjoiZW1pcmhhbiIsImlhdCI6MTcxNTQ1NzM0NiwiZXhwIjoxNzE1NDU4MjQ1fQ.VyDUEBOFcp5Q7RMhHJG8PihaIpofa88RD5lVks_BngI");
+            admin.setToken(jwtService.generateToken("emirhan"));
             repository.save(admin);
 
             System.out.println(admin.getToken());

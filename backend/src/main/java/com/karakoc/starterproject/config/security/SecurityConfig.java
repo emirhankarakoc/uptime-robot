@@ -7,5 +7,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityConfig {
     private final String secretKey = "111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc111222333abc";
-    private final long expirationDate = System.currentTimeMillis() + 1000 * 60 * 15; //15 minutes
+    private final long expirationDate = System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15; //15 days
 }

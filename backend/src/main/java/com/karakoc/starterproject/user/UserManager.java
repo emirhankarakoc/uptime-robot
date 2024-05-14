@@ -40,6 +40,10 @@ public class UserManager implements UserService {
         User user = repository.findByToken(token).orElseThrow(()->new NotfoundException("User not found."));
         return user;
     }
+    public UserDTO getUserDTOByToken(String token){
+        User user = repository.findByToken(token).orElseThrow(()->new NotfoundException("User not found."));
+        return userToDTO(user);
+    }
 
     public String forgotPassword(String username) {
         return mailSenderService.forgotPassword(username);

@@ -1,6 +1,7 @@
 package com.karakoc.starterproject.config.mailsender;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.karakoc.starterproject.exceptions.general.BadRequestException;
 import com.karakoc.starterproject.exceptions.general.NotfoundException;
 import com.karakoc.starterproject.user.User;
 import com.karakoc.starterproject.user.UserRepository;
@@ -45,7 +46,13 @@ public class MailSenderManager implements MailSenderService {
         simpleMailMessage.setSubject("YOUR PROJECT DOWN");
         simpleMailMessage.setTo(user.getMail());
         simpleMailMessage.setText("Your project down lil bro. <h1>Check it.</h1> Your project which down, removed from requestlist. Enter webpanel to add requestlist again. Enter webpanel to stop receiving mails.");
-        mailSender.send(simpleMailMessage);
+        try
+        {
+            mailSender.send(simpleMailMessage);
+        }
+        catch (Exception e){
+            throw new BadRequestException("Something wrong with mail service. Must be internet connection problem from server side. Don't be mad, just connect me. emirhankarakoc@yahoo.com");
+        }
     }
 
 }

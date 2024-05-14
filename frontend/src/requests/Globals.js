@@ -1,3 +1,2 @@
-export const adminToken =
-  "eyJhbGciOiJIUzI1NiJ9.eyJkZW5pemxpIjoiMjAyNCIsImVtaXJoYW4iOiJrYXJha29jIiwic3ViIjoiZW1pcmhhbiIsImlhdCI6MTcxNTQ1NzM0NiwiZXhwIjoxNzE1NDU4MjQ1fQ.VyDUEBOFcp5Q7RMhHJG8PihaIpofa88RD5lVks_BngI";
+export let adminToken = "emirhankarakocuptimerobot";
 export const APIURL = "http://localhost:8080";

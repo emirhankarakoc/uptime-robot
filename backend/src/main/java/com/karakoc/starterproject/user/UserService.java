@@ -11,4 +11,5 @@ public interface UserService {
     String forgotPassword(String username);
 
     String changePassword(String username, String password);
+    UserDTO getUserDTOByToken(String token);
 }

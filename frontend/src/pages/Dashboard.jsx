@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../components/Navigation";
 import axios from "axios";
-import { APIURL } from "../requests/Globals";
+import { APIURL, adminToken } from "../requests/Globals";
 import { Button, Col, Row } from "react-bootstrap";
 import ProjectCard from "../components/ProjectCard";
 
@@ -11,7 +11,8 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`${APIURL}/projects`);
+        const token = localStorage.getItem(adminToken);
+        const response = await axios.get(`${APIURL}/projects/all/${token}`);
         setProjects(response.data); // response.data olarak ayarlanmalı
       } catch (error) {
         console.log(error);

@@ -32,6 +32,11 @@ public class UserController {
         isLoggedIn(token);
         return service.getUserById(id);
     }
+    @GetMapping("/{token}")
+    public UserDTO getUserByToken( @PathVariable String token) {
+        isLoggedIn(token);
+        return service.getUserDTOByToken(token);
+    }
 
 
     @PutMapping("/password/forgot")
